@@ -1,6 +1,11 @@
 <template>
   <header>
-    <h1><img alt="Vue logo" src="../images/logo.svg" /></h1>
+    <h1>
+      <img
+        alt="Vue logo"
+        src="../images/logo.svg"
+      >
+    </h1>
     <div class="header__search">
       <span class="header__location">Helsinki, Finland</span>
       <span class="header__guests">Add guests</span>
@@ -10,19 +15,6 @@
     </div>
   </header>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-
-export default defineComponent({
-  props: {
-    msg: {
-      type: Number,
-      required: true,
-    },
-  },
-});
-</script>
 
 <style>
 header {

@@ -1,26 +1,3 @@
-<!-- <script lang="ts" setup>
-import { computed, reactive } from 'vue';
-
-interface Location {
-  id: number;
-  name: string;
-}
-
-const data = reactive({
-  locations: [
-    { id: 1, name: 'Helsinki, Finland' },
-    { id: 2, name: 'Turku, Finland' },
-    { id: 3, name: 'Oulu, Finland' },
-    { id: 4, name: 'Vasa, Finland' },
-  ] as Location[],
-  selectedLocation: 'Helsinki, Finland',
-});
-
-const select = (name: string) => {
-  data.selectedLocation = name;
-};
-</script> -->
-
 <script lang="ts">
 import { defineComponent } from 'vue';
 
@@ -38,7 +15,7 @@ export default defineComponent({
         { id: 2, name: 'Oulu, Finland' },
         { id: 3, name: 'Vasa, Finland' },
       ] as Location[],
-      selectedLocation: 0,
+      selectedLocationId: 0,
       isClicked: {
         location: false,
         guests: false,
@@ -47,10 +24,21 @@ export default defineComponent({
       childrenCount: 0,
     };
   },
+  computed: {
+    selectedLocation(): string {
+      const target = this.locations.filter(
+        (location) => location.id === this.selectedLocationId
+      )[0];
+      return target.name;
+    },
+    totalGuests(): string {
+      return `${this.adultsCount + this.childrenCount} guests`
+    }
+  },
   methods: {
     select(id: number) {
       console.log(id);
-      this.selectedLocation = id;
+      this.selectedLocationId = id;
       this.isClicked.location = false;
     },
     clickLocation() {
@@ -78,14 +66,6 @@ export default defineComponent({
       this.childrenCount++;
     },
   },
-  computed: {
-    location(): string {
-      const target = this.locations.filter(
-        (location) => location.id === this.selectedLocation
-      )[0];
-      return target.name;
-    },
-  },
 });
 </script>
 
@@ -99,20 +79,21 @@ export default defineComponent({
             type="text"
             label="location"
             class="drawer__location"
-            :value="location"
+            :value="selectedLocation"
             @click="clickLocation"
-          />
+          >
         </fieldset>
-        <ul v-if="isClicked.location" class="drawer__location_ul">
+        <ul
+          v-if="isClicked.location"
+          class="drawer__location_ul"
+        >
           <li
             v-for="location in locations"
             :key="location.id"
             class="drawer__location_list"
             @click="select(location.id)"
           >
-            <span class="material-icons drawer__locationOn_icon"
-              >location_on</span
-            >
+            <span class="material-icons drawer__locationOn_icon">location_on</span>
             {{ location.name }}
           </li>
         </ul>
@@ -124,20 +105,52 @@ export default defineComponent({
             type="text"
             class="drawer__guests"
             placeholder="Add guests"
+            :value="totalGuests"
             @click="clickGuests"
-          />
+          >
         </fieldset>
-        <div v-if="isClicked.guests" class="drawer__guests_counter">
-          <p class="drawer__adultsCounter_title">Adults</p>
-          <p class="drawer__adultsCounter_explanation">Ages 13 or above</p>
-          <button @click="adultsCountDown">-</button>
+        <div
+          v-if="isClicked.guests"
+          class="drawer__guests_counter"
+        >
+          <p class="drawer__adultsCounter_title">
+            Adults
+          </p>
+          <p class="drawer__adultsCounter_explanation">
+            Ages 13 or above
+          </p>
+          <button
+            class="countButton"
+            @click="adultsCountDown"
+          >
+            -
+          </button>
           <span class="counter">{{ adultsCount }}</span>
-          <button @click="adultsCountUp">+</button>
-          <p class="drawer__childrenCounter_title">Children</p>
-          <p class="drawer__childrenCounter_explanation">Ages 2-12</p>
-          <button @click="childrenCountDown">-</button>
+          <button
+            class="countButton"
+            @click="adultsCountUp"
+          >
+            +
+          </button>
+          <p class="drawer__childrenCounter_title">
+            Children
+          </p>
+          <p class="drawer__childrenCounter_explanation">
+            Ages 2-12
+          </p>
+          <button
+            class="countButton"
+            @click="childrenCountDown"
+          >
+            -
+          </button>
           <span class="counter">{{ childrenCount }}</span>
-          <button @click="childrenCountUp">+</button>
+          <button
+            class="countButton"
+            @click="childrenCountUp"
+          >
+            +
+          </button>
         </div>
       </div>
       <div class="drawer__searchButton_wrapper">
@@ -148,9 +161,9 @@ export default defineComponent({
       </div>
     </div>
 
-    <div></div>
+    <div />
   </div>
-  <div class="drawer__backGround"></div>
+  <div class="drawer__backGround" />
 </template>
 
 <style>
@@ -254,6 +267,13 @@ input:focus {
   font-size: 14px;
   font-weight: 700;
   margin: 0 8px;
+}
+
+.countButton {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px #828282 solid;
+  color: #828282;
 }
 
 .drawer__searchButton {

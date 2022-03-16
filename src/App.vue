@@ -1,19 +1,25 @@
 <template>
-  <!-- <Header v-bind:msg="1234" /> -->
-  <Drawer />
+  <Header />
+  <Search v-if="isHeaderOpen" />
 </template>
 
 <script lang="ts">
 import 'normalize.css';
 import { defineComponent } from 'vue';
 import Header from './components/Header.vue';
-import Drawer from './components/Drawer.vue';
+import Search from './components/Search.vue';
+
 
 export default defineComponent({
   components: {
     Header,
-    Drawer,
+    Search,
   },
+  data() {
+    return {
+      isHeaderOpen: false
+    }
+  }
 });
 </script>
 
