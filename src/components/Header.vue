@@ -1,10 +1,7 @@
 <template>
   <header>
     <h1>
-      <img
-        alt="Vue logo"
-        src="../images/logo.svg"
-      >
+      <img alt="Vue logo" src="../../public/logo.svg" />
     </h1>
     <div class="header__search">
       <span class="header__location">Helsinki, Finland</span>

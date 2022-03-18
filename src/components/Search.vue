@@ -32,8 +32,8 @@ export default defineComponent({
       return target.name;
     },
     totalGuests(): string {
-      return `${this.adultsCount + this.childrenCount} guests`
-    }
+      return `${this.adultsCount + this.childrenCount} guests`;
+    },
   },
   methods: {
     select(id: number) {
@@ -81,19 +81,18 @@ export default defineComponent({
             class="drawer__location"
             :value="selectedLocation"
             @click="clickLocation"
-          >
+          />
         </fieldset>
-        <ul
-          v-if="isClicked.location"
-          class="drawer__location_ul"
-        >
+        <ul v-if="isClicked.location" class="drawer__location_ul">
           <li
             v-for="location in locations"
             :key="location.id"
             class="drawer__location_list"
             @click="select(location.id)"
           >
-            <span class="material-icons drawer__locationOn_icon">location_on</span>
+            <span class="material-icons drawer__locationOn_icon"
+              >location_on</span
+            >
             {{ location.name }}
           </li>
         </ul>
@@ -107,50 +106,19 @@ export default defineComponent({
             placeholder="Add guests"
             :value="totalGuests"
             @click="clickGuests"
-          >
+          />
         </fieldset>
-        <div
-          v-if="isClicked.guests"
-          class="drawer__guests_counter"
-        >
-          <p class="drawer__adultsCounter_title">
-            Adults
-          </p>
-          <p class="drawer__adultsCounter_explanation">
-            Ages 13 or above
-          </p>
-          <button
-            class="countButton"
-            @click="adultsCountDown"
-          >
-            -
-          </button>
+        <div v-if="isClicked.guests" class="drawer__guests_counter">
+          <p class="drawer__adultsCounter_title">Adults</p>
+          <p class="drawer__adultsCounter_explanation">Ages 13 or above</p>
+          <button class="countButton" @click="adultsCountDown">-</button>
           <span class="counter">{{ adultsCount }}</span>
-          <button
-            class="countButton"
-            @click="adultsCountUp"
-          >
-            +
-          </button>
-          <p class="drawer__childrenCounter_title">
-            Children
-          </p>
-          <p class="drawer__childrenCounter_explanation">
-            Ages 2-12
-          </p>
-          <button
-            class="countButton"
-            @click="childrenCountDown"
-          >
-            -
-          </button>
+          <button class="countButton" @click="adultsCountUp">+</button>
+          <p class="drawer__childrenCounter_title">Children</p>
+          <p class="drawer__childrenCounter_explanation">Ages 2-12</p>
+          <button class="countButton" @click="childrenCountDown">-</button>
           <span class="counter">{{ childrenCount }}</span>
-          <button
-            class="countButton"
-            @click="childrenCountUp"
-          >
-            +
-          </button>
+          <button class="countButton" @click="childrenCountUp">+</button>
         </div>
       </div>
       <div class="drawer__searchButton_wrapper">
