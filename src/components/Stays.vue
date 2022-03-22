@@ -97,6 +97,7 @@ export default defineComponent({
 .stays__wrapper {
   padding: 2rem 6rem;
   font-family: 'Montserrat', Avenir, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
 }
 
 .stays__header {

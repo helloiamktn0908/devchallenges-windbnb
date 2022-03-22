@@ -1,6 +1,5 @@
 <template>
   <Header />
-  <!-- <Search v-if="isHeaderOpen" /> -->
   <Stays />
 </template>
 
